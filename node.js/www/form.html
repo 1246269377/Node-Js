@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="ajax.js" ></script>
+		<script>
+		window.onload=function(){
+			var oTextName=document.getElementById("name");
+			var oTextPass=document.getElementById("pass");
+			var oBtnReg=document.getElementById("reg_btn");
+			var oBtnLogin=document.getElementById("login_btn");
+			
+			oBtnLogin.onclick=function(){
+				ajax({
+					url:'/user',
+					data:{act:'login',name:oTextName.value,pass:oTextPass.value},
+					type:'get',
+					success:function(str){
+						var json=eval('('+str+')');
+						
+						if(json.ok){
+							alert('登录成功');
+						}else{
+							alert('注册失败,失败原因:'+json.msg);
+						}
+					},
+					error:function(str){
+						alert('ajax请求失败，失败原因：');
+						alert(str);
+					}
+				});
+			}
+			
+			oBtnReg.onclick=function(){
+				ajax({
+					url:'/user',
+					data:{act:'reg',name:oTextName.value,pass:oTextPass.value},
+					type:'get',
+					success:function(str){
+						var json=eval('('+str+')');
+						
+						if(json.ok){
+							alert('注册成功');
+						}else{
+							alert('注册失败,失败原因:'+json.msg);
+						}
+					},
+					error:function(str){
+						alert('ajax请求失败，失败原因：');
+						alert(str);
+					}
+				});
+			}
+			
+		}
+		</script>
+	</head>
+	<body>
+			用户：<input type="text" id="name" value="" /><br />
+			密码：<input type="password" id="pass" value="" /><br />
+			<input type="button" id="reg_btn" value="注册"/>
+			<input type="button" id="login_btn" value="登录" />
+	</body>
+</html>
