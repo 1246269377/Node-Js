@@ -12,14 +12,15 @@ server.use(bodyParser.urlencoded({
 	limit: 2*1024*1024               //大小限制 2MB ,默认大小：100KB
 }));
 
-//GET POST
-server.use('/',function(req,res){
-	//console.log(req.query); //GET
-	
-	//console.log(req.body); //POST
-})
 server.use('/',function(req,res,next){
 	console.log("123")
 	
 	next();
+})
+
+//GET POST
+server.use('/',function(req,res){
+	//console.log(req.query); //GET
+	
+	console.log(req.body); //POST
 })
