@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>测试服务器的表单</title>
+		<script src="ajax.js"></script>
+		<script>
+			window.onload = function() {
+				var oUser = document.getElementById("user");
+				var oPass = document.getElementById("pass");
+				var Login = document.getElementById("login");
+
+				Login.onclick = function() {
+					ajax({
+						url: '/login',
+						data: {user: oUser.value,pass: oPass.value},
+						success: function(str) {
+							var json = eval('(' + str + ')');
+							if(json.ok) {
+								alert('登录成功');
+							} else {
+								alert('登录失败:' + json.msg);
+							}
+						},
+						error: function(str) {
+							alert('ajax请求失败，失败原因：');
+						    alert(str);
+						}
+					});
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		用户：<input type="text" id="user" /><br /> 
+		密码：<input type="password" id="pass" /><br />
+		<input type="button" value="登录" id="login" />
+	</body>
+
+</html>
