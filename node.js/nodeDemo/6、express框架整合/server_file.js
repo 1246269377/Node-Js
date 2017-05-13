@@ -16,7 +16,6 @@ server.listen(8080);
 server.use(objMulter.any());
 
 server.post('/',function(req,res){
-	console.log(req.files);
 	//新文件名
 	//'./www/data/???'+'.png/.jsp/...'
 	
@@ -30,6 +29,5 @@ server.post('/',function(req,res){
 		res.end();
 	})
 	console.log(newName);
-	
 })
 
