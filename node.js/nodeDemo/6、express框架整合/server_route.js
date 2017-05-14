@@ -19,7 +19,7 @@ routUser.get('/2.html',function(req,res){    //http://xxx.com/user/2.html
 
 server.use('/user',routUser);
 
-//目录2：/article/
+//目录2：/article/       
 var articleRouter=express.Router();
 articleRouter.get('/1.html',function(req,res){    //http://xxx.com/user/1.html
 	res.send('user1a');
