@@ -1,10 +1,10 @@
-1、banner图
+1、banner图(banner_table)
         ID
         title            标题           varchar(32)(一般最大几百个字)
         sub_title        副标题       varchar(16)
         src              图片           varchar(64)
         
-2、文章
+2、文章(article_table)
         ID
         author           作者                   varchar(16)
         author_src       作者头像            varchar(64)
@@ -14,8 +14,10 @@
         n_like           赞                        int
         
         
-3、用户
+3、用户(user_table)
         ID
         username         用户名               varchar(32)
         password         密码                   varchar(32)
         src              头像                   varchar(64)
+
+
