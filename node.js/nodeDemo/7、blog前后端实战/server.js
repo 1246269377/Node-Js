@@ -81,7 +81,7 @@ server.get('/article', (req, res) => {
 		db.query("SELECT * FROM article_table where id=" + req.query.id, (err, data) => {
 			if(err) {
 				console.log(err);
-				res.status(500).send('database error').end();
+				res.status(500).send('文章数据未查询到').end();
 			} else {
 				console.log(data);
 				res.render('conText.ejs', {
