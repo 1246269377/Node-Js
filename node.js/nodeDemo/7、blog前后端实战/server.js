@@ -10,6 +10,8 @@ const multer = require('multer'); //post文件解析模块
 const consolidate = require('consolidate'); //模板引擎整合库
 const mysql = require('mysql'); //mysql数据库
 
+const commonJs = require('./lib/common'); //自定义的函数库
+
 //连接池
 const db = mysql.createPool({
 	host: 'localhost',
@@ -80,19 +82,38 @@ server.get('/article', (req, res) => {
 	if(req.query.id) {
 		db.query("SELECT * FROM article_table where id=" + req.query.id, (err, data) => {
 			if(err) {
-				console.log(err);
 				res.status(500).send('文章数据未查询到').end();
 			} else {
-				console.log(data);
-				res.render('conText.ejs', {
-					articles: data
-				});
+				if(data.length == 0) {
+					res.status(404).send('没有这篇文章').end();
+				} else {
+					if(req.query.act == 'like') {
+						db.query("UPDATE article_table SET n_like=n_like+1 where id=" + req.query.id, (err, data1) => {
+							if(err) {
+								res.status(500).send('数据库出现问题1').end();
+								console.log(err);
+							} else {
+								data[0].post_time = commonJs.changeTime(data[0].post_time);
+								data[0].content = commonJs.changeContent(data[0].content);
+								res.render('conText.ejs', {
+									articles: data[0]
+								});
+							}
+						});
+					} else {
+						data[0].post_time = commonJs.changeTime(data[0].post_time);
+						data[0].content = commonJs.changeContent(data[0].content);
+						res.render('conText.ejs', {
+							articles: data[0]
+						});
+					}
+
+				}
 			}
-		})
+		});
 	} else {
 		res.status(500).send('您请求的文章不存在').end();
 	}
-
 });
 
 //6.static数据
